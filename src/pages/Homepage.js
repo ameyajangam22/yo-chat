@@ -44,7 +44,7 @@ const HomePage = () => {
 			>
 				Logout
 			</button>
-			<div className="grid grid-cols-4 h-screen  mt-8">
+			<div className="grid grid-cols-4 h-screen mt-8">
 				<div className="col-span-1">
 					<UserList userList={user.users} id={auth.uid} />
 				</div>

@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import HomePage from "./pages/Homepage";
 function App() {
 	return (
-		<div className="App">
+		<div className="App h-screen overflow-y-hidden">
 			<h2 className="text-center text-4xl mt-4 font-bold">Yo-chat 😎</h2>
 			<Router>
 				<Route exact path="/" component={Signup} />
