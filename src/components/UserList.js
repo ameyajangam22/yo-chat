@@ -1,6 +1,6 @@
 import UserCard from "./UserCard";
 
-const UserList = ({ userList, id }) => {
+const UserList = ({ userList, id, initChat }) => {
 	return (
 		<>
 			<div className="relative bg-green-200 h-5/6 ">
@@ -12,9 +12,14 @@ const UserList = ({ userList, id }) => {
 						if (user.uid != id)
 							return (
 								<UserCard
+									key={user.uid}
+									onClick={(user) => {
+										initChat(user);
+									}}
 									fname={user.firstName}
 									lname={user.lastName}
 									isOnline={user.isOnline}
+									user={user}
 								/>
 							);
 					})}

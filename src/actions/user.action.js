@@ -14,8 +14,8 @@ export const getRealtimeUsers = (uid) => {
 				users.push(value);
 			});
 			// console.log("SNAPSHOT", data);
-			console.log("SNAPSHOT", data);
-			console.log("USEERRRSSS", users);
+			// console.log("SNAPSHOT", data);
+			// console.log("USEERRRSSS", users);
 
 			dispatch({
 				type: `${userConstants.GET_REALTIME_USERS}_SUCCESS`,

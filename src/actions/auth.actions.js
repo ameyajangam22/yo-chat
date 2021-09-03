@@ -100,28 +100,30 @@ export const login = (user) => {
 export const logout = (pushId) => {
 	return async (dispatch) => {
 		dispatch({ type: `${authConstants.USER_LOGOUT}_REQUEST` });
-		db.ref("/users/" + pushId)
-			.update({
-				isOnline: false,
-			})
-			.then(() => {
-				//auth logging out
-				auth()
-					.signOut()
-					.then(() => {
-						localStorage.clear();
-						dispatch({ type: `${authConstants.USER_LOGOUT}_SUCCESS` });
-					})
-					.catch((error) => {
-						console.log(error);
-						dispatch({
-							type: `${authConstants.USER_LOGOUT}_FAILURE`,
-							payload: { error },
+		if (pushId.length > 0) {
+			db.ref("/users/" + pushId)
+				.update({
+					isOnline: false,
+				})
+				.then(() => {
+					//auth logging out
+					auth()
+						.signOut()
+						.then(() => {
+							localStorage.clear();
+							dispatch({ type: `${authConstants.USER_LOGOUT}_SUCCESS` });
+						})
+						.catch((error) => {
+							console.log(error);
+							dispatch({
+								type: `${authConstants.USER_LOGOUT}_FAILURE`,
+								payload: { error },
+							});
 						});
-					});
-			})
-			.catch((error) => {
-				console.log(error);
-			});
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
 	};
 };

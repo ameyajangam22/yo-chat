@@ -10,10 +10,17 @@ const HomePage = () => {
 	const dispatch = useDispatch();
 	const auth = useSelector((state) => state.auth);
 	const user = useSelector((state) => state.user);
+	const [chatUser, setChatUser] = useState("");
+	const [chatStarted, setChatStarted] = useState(false);
 	const history = useHistory();
 	const [pushId, setPushId] = useState("");
 	const logMeOut = () => {
 		dispatch(logout(pushId));
+	};
+	const initChat = (user) => {
+		setChatStarted(true);
+		console.log(user);
+		setChatUser(`${user.firstName} ${user.lastName}`);
 	};
 	useEffect(() => {
 		dispatch(getRealtimeUsers(auth.uid));
@@ -46,10 +53,16 @@ const HomePage = () => {
 			</button>
 			<div className="grid grid-cols-4 h-screen mt-8">
 				<div className="col-span-1">
-					<UserList userList={user.users} id={auth.uid} />
+					<UserList
+						initChat={(user) => {
+							initChat(user);
+						}}
+						userList={user.users}
+						id={auth.uid}
+					/>
 				</div>
 				<div className="col-span-3">
-					<Chat />
+					<Chat chatStarted={chatStarted} chatUser={chatUser} />
 				</div>
 			</div>
 		</>

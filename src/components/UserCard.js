@@ -1,7 +1,12 @@
-const UserCard = ({ fname, lname, isOnline }) => {
+const UserCard = ({ fname, lname, isOnline, onClick, user }) => {
 	return (
 		<>
-			<div className="cursor-pointer flex justify-evenly items-center w-full relative bg-gray-100 border-b-2">
+			<div
+				onClick={() => {
+					onClick(user);
+				}}
+				className="cursor-pointer flex justify-evenly items-center w-full relative bg-gray-100 border-b-2"
+			>
 				<h2 className="text-center p-4">
 					{fname} {lname}
 				</h2>
