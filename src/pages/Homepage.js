@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router";
-import { getRealtimeUsers, logout } from "../actions";
+import { getRealTimeConversations, getRealtimeUsers, logout } from "../actions";
 import Chat from "../components/Chat";
 import UserList from "../components/UserList";
 import { db } from "../firebase";
@@ -11,6 +11,7 @@ const HomePage = () => {
 	const auth = useSelector((state) => state.auth);
 	const user = useSelector((state) => state.user);
 	const [chatUser, setChatUser] = useState("");
+	const [chatUserPushId, setChatUserPushId] = useState("");
 	const [chatStarted, setChatStarted] = useState(false);
 	const history = useHistory();
 	const [pushId, setPushId] = useState("");
@@ -21,6 +22,7 @@ const HomePage = () => {
 		setChatStarted(true);
 		console.log(user);
 		setChatUser(`${user.firstName} ${user.lastName}`);
+		setChatUserPushId(user.pushId);
 	};
 	useEffect(() => {
 		dispatch(getRealtimeUsers(auth.uid));
@@ -32,6 +34,9 @@ const HomePage = () => {
 			}
 		});
 	}, []);
+	useEffect(() => {
+		dispatch(getRealTimeConversations(pushId, chatUserPushId));
+	}, [pushId, chatUserPushId]);
 	useEffect(() => {
 		console.log("PUSH_ID", pushId);
 		if (pushId.length) {
@@ -62,7 +67,14 @@ const HomePage = () => {
 					/>
 				</div>
 				<div className="col-span-3">
-					<Chat chatStarted={chatStarted} chatUser={chatUser} />
+					<Chat
+						chatStarted={chatStarted}
+						chatUser={chatUser}
+						authUid={auth.uid}
+						pushId={pushId}
+						chatUserPushId={chatUserPushId}
+						conversations={user.conversations}
+					/>
 				</div>
 			</div>
 		</>
