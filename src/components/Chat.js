@@ -9,6 +9,7 @@ const Chat = ({
 	pushId,
 	chatUserPushId,
 	conversations,
+	updateState,
 }) => {
 	const dispatch = useDispatch();
 	const [message, setMessage] = useState("");
@@ -23,6 +24,7 @@ const Chat = ({
 		if (message !== "") {
 			dispatch(updateMessage(msgObj));
 		}
+		updateState();
 	};
 	return (
 		<>

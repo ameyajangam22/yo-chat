@@ -11,6 +11,7 @@ const HomePage = () => {
 	const auth = useSelector((state) => state.auth);
 	const user = useSelector((state) => state.user);
 	const [chatUser, setChatUser] = useState("");
+	const [buttonClicked, setButtonClicked] = useState(false);
 	const [chatUserPushId, setChatUserPushId] = useState("");
 	const [chatStarted, setChatStarted] = useState(false);
 	const history = useHistory();
@@ -36,7 +37,7 @@ const HomePage = () => {
 	}, []);
 	useEffect(() => {
 		dispatch(getRealTimeConversations(pushId, chatUserPushId));
-	}, [pushId, chatUserPushId]);
+	}, [pushId, chatUserPushId, buttonClicked]);
 	useEffect(() => {
 		console.log("PUSH_ID", pushId);
 		if (pushId.length) {
@@ -74,6 +75,9 @@ const HomePage = () => {
 						pushId={pushId}
 						chatUserPushId={chatUserPushId}
 						conversations={user.conversations}
+						updateState={() => {
+							setButtonClicked(!buttonClicked);
+						}}
 					/>
 				</div>
 			</div>
