@@ -25,13 +25,13 @@ const HomePage = () => {
 		setChatUser(`${user.firstName} ${user.lastName}`);
 		setChatUserPushId(user.pushId);
 	};
+
 	useEffect(() => {
 		dispatch(getRealtimeUsers(auth.uid));
 		user.users.forEach((el) => {
 			console.log(el);
 			if (el.uid === auth.uid) {
 				setPushId(el.pushId);
-				return;
 			}
 		});
 	}, []);

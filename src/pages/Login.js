@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { login } from "../actions";
+import { isLoggedInUser, login } from "../actions";
 
 const Login = () => {
 	const history = useHistory();
@@ -18,6 +18,7 @@ const Login = () => {
 			setPassword(value);
 		}
 	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		//firebase validate user
@@ -32,6 +33,7 @@ const Login = () => {
 		dispatch(login({ email, password }));
 		// redirect to chat app
 	};
+
 	if (auth.authenticated == true) {
 		history.push("/main");
 	}
