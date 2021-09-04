@@ -39,9 +39,12 @@ const Chat = ({
 							return (
 								<div className=" p-2 ">
 									<p
-										className="bg-gray-50 text-left p-2 w-32 "
+										className=" text-left p-2 w-32 "
 										style={{
 											float: convo.user_uid_1 === pushId ? "right" : "left",
+											backgroundColor:
+												convo.user_uid_1 === pushId ? "#0085fa" : "#ebeff2",
+											color: convo.user_uid_1 === pushId ? "white" : "black",
 										}}
 									>
 										{convo.message}
